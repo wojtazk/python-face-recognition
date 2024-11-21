@@ -5,8 +5,9 @@ name = "pypi"
 
 [packages]
 opencv-python = "*"
-matplotlib = "*"
 deepface = "*"
+tf-keras = "*"
+torch = "*"
 
 [dev-packages]
 
