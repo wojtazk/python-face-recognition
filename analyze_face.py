@@ -1,54 +1,64 @@
 import cv2
 from deepface import DeepFace
 
-cv2.startWindowThread()
-cap = cv2.VideoCapture(0)  # 0 - initialize video capture from the default camera
-
-window_name = 'Hello There'
+from helpers import opencv_decorator, models
 
 
-while True:
-    ret, frame = cap.read()  # read the frame
+# loading model into memory
+DeepFace.build_model(models[0])
 
-    # frame = cv2.resize(frame, (640, 480))  # resize the frame
-    frame = cv2.flip(frame, 1)  # flip the frame horizontally
 
-    # show the camera output
-    cv2.imshow(window_name, frame)
+def analyze_face(frame = None) -> None:
+    if frame is None:
+        return
 
-    # get pressed key
-    pressed_key = cv2.waitKey(1) & 0xFF
-    # Press 'q' to quit
-    if pressed_key == ord('q'):
-        break
-    # quit when pressing the exit button
-    if cv2.getWindowProperty(window_name, cv2.WND_PROP_VISIBLE) < 1:
-        break
+    extracted_faces = DeepFace.extract_faces(
+        frame,
+        anti_spoofing=True
+    )
+    print(extracted_faces[0])
 
-    # Press 'f' to pay respect
-    if pressed_key == ord('f'):
-        result = DeepFace.analyze(frame, actions=["emotion", "age", "gender", "race"], enforce_detection=False, )[0]
+    face = extracted_faces[0]['face']
+    facial_area = extracted_faces[0]['facial_area']
+    face_confidence = extracted_faces[0]['confidence']
 
-        emotion = result['dominant_emotion']
-        age = int(result['age'])
-        gender = result['dominant_gender']
-        race = result['dominant_race']
+    is_real = extracted_faces[0]['is_real']
+    anti_spoof_score = extracted_faces[0]['antispoof_score']
 
-        text = f"Emotion: {emotion}, Age: {age}, Gender: {gender}, Race: {race}"
+    # get region with detected face
+    x = facial_area['x']
+    y = facial_area['y']
+    w = facial_area['w']
+    h = facial_area['h']
 
-        cv2.putText(frame, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (102, 255, 102), 2)
+    # draw rectangle around the face
+    cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 153, 0), 2)
 
-        while True:
-            cv2.imshow(window_name, frame)
+    # display face confidence
+    text = f"Face confidence: {face_confidence * 100:.0f}%"
+    cv2.putText(frame, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 153, 0), 2)
 
-            # get pressed key
-            pressed_key = cv2.waitKey(1) & 0xFF
-            # Press 'q' to quit
-            if pressed_key == ord('q'):
-                break
-            # quit when pressing the exit button
-            if cv2.getWindowProperty(window_name, cv2.WND_PROP_VISIBLE) < 1:
-                break
+    # display anti spoof score
+    text = f"Real face: {is_real}, confidence: {anti_spoof_score * 100:.2f}%"
+    cv2.putText(frame, text, (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 153, 0), 2)
 
-cap.release()
-cv2.destroyAllWindows()
+    # analyze face
+    face_analysis = DeepFace.analyze(
+        frame,
+        actions=["emotion", "age", "gender", "race"],
+        enforce_detection=False
+    )[0]
+    print(face_analysis)
+
+    emotion = face_analysis['dominant_emotion']
+    age = int(face_analysis['age'])
+    gender = face_analysis['dominant_gender']
+    race = face_analysis['dominant_race']
+
+    # display analysis info
+    text = f"Emotion: {emotion}, Age: {age}, Gender: {gender}, Race: {race}"
+    cv2.putText(frame, text, (10, 90), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (102, 255, 102), 2)
+
+
+if __name__ == '__main__':
+    opencv_decorator(analyze_face)
