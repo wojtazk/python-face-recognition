@@ -28,6 +28,9 @@ def opencv_decorator(func):
         # frame = cv2.resize(frame, (640, 480))  # resize the frame
         frame = cv2.flip(frame, 1)  # flip the frame horizontally
 
+        # pad the frame
+        frame = cv2.copyMakeBorder(frame, 300, 300, 300, 300, cv2.BORDER_CONSTANT, value=(0, 0, 0))
+
         # show the camera output
         cv2.imshow(window_name, frame)
 
