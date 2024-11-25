@@ -8,7 +8,7 @@ from helpers import opencv_decorator, models
 DeepFace.build_model(models[0])
 
 
-def analyze_face(frame = None) -> None:
+def analyze_face(frame=None) -> None:
     if frame is None:
         return
 
@@ -20,7 +20,7 @@ def analyze_face(frame = None) -> None:
     for i in range(len(extracted_faces)):
         print(extracted_faces[i])
 
-        face = extracted_faces[i]['face']
+        # face = extracted_faces[i]['face']
         facial_area = extracted_faces[i]['facial_area']
         face_confidence = extracted_faces[i]['confidence']
 
@@ -64,7 +64,7 @@ def analyze_face(frame = None) -> None:
         # get region with detected face
         x = facial_area['x']
         y = facial_area['y']
-        w = facial_area['w']
+        # w = facial_area['w']
         h = facial_area['h']
 
         # # display analysis info
@@ -72,7 +72,7 @@ def analyze_face(frame = None) -> None:
         j = 0
         for text in texts:
             cv2.putText(frame, text, (x + 10, y + h + 90 + 30 * j), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 153, 0), 2)
-            j+=1
+            j += 1
 
 
 if __name__ == '__main__':

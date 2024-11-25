@@ -21,15 +21,17 @@ def opencv_decorator(func):
 
     window_name = 'Hello There'
 
+    # image = cv2.imread('/home/wojtazk/Desktop/anakin_skywalker_darth_vader.jpeg')
 
     while True:
-        ret, frame = cap.read()  # read the frame
+        ret, frame = cap.read()  # read the frame from the camera
+        # frame = image.copy()
 
         # frame = cv2.resize(frame, (640, 480))  # resize the frame
         frame = cv2.flip(frame, 1)  # flip the frame horizontally
 
         # pad the frame
-        frame = cv2.copyMakeBorder(frame, 300, 300, 300, 300, cv2.BORDER_CONSTANT, value=(0, 0, 0))
+        frame = cv2.copyMakeBorder(frame, 100, 100, 100, 100, cv2.BORDER_CONSTANT, value=(0, 0, 0))
 
         # show the camera output
         cv2.imshow(window_name, frame)
