@@ -1,14 +1,14 @@
 import cv2
 from deepface import DeepFace
 
-from helpers import opencv_decorator, models
+from helpers import opencv_decorator_camera, models
 
 
 # loading model into memory
 DeepFace.build_model(models[0])
 
 
-def analyze_face(frame=None) -> None:
+def analyze_face_camera(frame=None) -> None:
     if frame is None:
         return
 
@@ -76,4 +76,4 @@ def analyze_face(frame=None) -> None:
 
 
 if __name__ == '__main__':
-    opencv_decorator(analyze_face)
+    opencv_decorator_camera(analyze_face_camera)

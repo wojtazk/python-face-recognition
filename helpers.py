@@ -15,7 +15,7 @@ models = [
 ]
 
 
-def opencv_decorator(func):
+def opencv_decorator_camera(func):
     cv2.startWindowThread()
     cap = cv2.VideoCapture(0)  # 0 - initialize video capture from the default camera
 
