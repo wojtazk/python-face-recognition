@@ -3,6 +3,10 @@ from deepface import DeepFace
 
 from helpers import opencv_decorator_camera, models
 
+import tensorflow as tf
+# Hide GPU from visible devices
+tf.config.set_visible_devices([], 'GPU')
+
 
 # loading model into memory
 DeepFace.build_model(models[0])
