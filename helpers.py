@@ -21,11 +21,8 @@ def opencv_decorator_camera(func):
 
     window_name = 'Hello There'
 
-    # image = cv2.imread('/home/wojtazk/Desktop/anakin_skywalker_darth_vader.jpeg')
-
     while True:
         ret, frame = cap.read()  # read the frame from the camera
-        # frame = image.copy()
 
         # frame = cv2.resize(frame, (640, 480))  # resize the frame
         frame = cv2.flip(frame, 1)  # flip the frame horizontally
