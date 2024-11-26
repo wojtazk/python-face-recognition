@@ -12,6 +12,7 @@ cap = cv2.VideoCapture(0)  # 0 - initialize video capture from the default camer
 
 window_name = 'Hello There'
 cv2.namedWindow(window_name, cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)
+cv2.resizeWindow(window_name, 600, 600)
 
 while True:
     ret, frame = cap.read()  # read the frame from the camera
