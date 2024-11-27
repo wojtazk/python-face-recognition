@@ -1,11 +1,13 @@
 import cv2
 
-from helpers import detect_spoofing, analyze_faces
+from helpers import detect_spoofing, analyze_faces, draw_spoofing, draw_face_analysis
 
 import tensorflow as tf
 # Hide GPU from visible devices
 tf.config.set_visible_devices([], 'GPU')
 
+
+border = (200, 200, 200, 200)
 
 if __name__ == '__main__':
     cv2.startWindowThread()
@@ -40,14 +42,23 @@ if __name__ == '__main__':
         if pressed_key == ord('f'):
 
             # detect spoofing, draw rectangle and spoofing info
-            detect_spoofing(frame)
-
-            # add padding to the frame
-            frame = cv2.copyMakeBorder(frame, 200, 200, 200, 200, cv2.BORDER_CONSTANT, value=(0, 0, 0, 0))
+            spoofing_analysis = detect_spoofing(frame)
+            print()
+            for face in spoofing_analysis:
+                del face['face']
+                print(face)
 
             # analyze faces and draw results
-            analyze_faces(frame)
+            face_analysis = analyze_faces(frame)
+            for face in face_analysis:
+                print(face)
 
+            # add padding to the frame
+            frame = cv2.copyMakeBorder(frame, *border, cv2.BORDER_CONSTANT, value=(0, 0, 0, 0))
+
+            # draw spoofing info and face analysis
+            draw_spoofing(frame, spoofing_analysis, border)
+            draw_face_analysis(frame, face_analysis, border)
             while True:
                 cv2.imshow(window_name, frame)
 

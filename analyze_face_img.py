@@ -1,18 +1,15 @@
 import cv2
 import uuid
+import os
 
-from helpers import detect_spoofing, analyze_faces
+from helpers import detect_spoofing, analyze_faces, draw_spoofing, draw_face_analysis
 
-import tensorflow as tf
-# Hide GPU from visible devices
-tf.config.set_visible_devices([], 'GPU')
 
-images = [
-    '/home/wojtazk/Desktop/obi-wan_1.jpg',
-    '/home/wojtazk/Desktop/stary_obi_wan.jpg',
-    '/home/wojtazk/Desktop/obi_wan_animowany.png',
-    '/home/wojtazk/Desktop/lego_obi_wan.jpg',
-]
+IMG_DIRECTORY = '/home/wojtazk/Desktop/biometria_zdjecia'
+images = sorted(IMG_DIRECTORY + '/' + file for file in os.listdir(IMG_DIRECTORY))
+
+# border: top, bottom, left, right
+border = (1000, 1000, 1000, 1000)
 
 
 if __name__ == '__main__':
@@ -21,11 +18,17 @@ if __name__ == '__main__':
 
         # frame = cv2.resize(frame, (640, 480))  # resize the frame
 
-        # detect spoofing, draw rectangle and spoofing info
-        detect_spoofing(frame)
+        # detect spoofing
+        spoofing_analysis = detect_spoofing(frame)
+        print()
+        for face in spoofing_analysis:
+            del face['face']
+            print(face)
 
-        # analyze faces and draw results
-        analyze_faces(frame)
+        # analyze faces
+        face_analysis = analyze_faces(frame)
+        for face in face_analysis:
+            print(face)
 
         # define window
         cv2.startWindowThread()
@@ -35,7 +38,11 @@ if __name__ == '__main__':
         cv2.resizeWindow(window_id, 600, 600)
 
         # add padding to the frame
-        frame = cv2.copyMakeBorder(frame, 1000, 1000, 1000, 1000, cv2.BORDER_CONSTANT, value=(0, 0, 0, 0))
+        frame = cv2.copyMakeBorder(frame, *border, cv2.BORDER_CONSTANT, value=(0, 0, 0, 0))
+
+        # draw spoofing info and face analysis
+        draw_spoofing(frame, spoofing_analysis, border)
+        draw_face_analysis(frame, face_analysis, border)
         while True:
             cv2.imshow(window_id, frame)
             # get pressed key
