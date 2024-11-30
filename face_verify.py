@@ -5,11 +5,11 @@ import numpy as np
 from helpers import detect_spoofing, draw_spoofing
 
 
-IMG1_PATH = '/home/wojtazk/Desktop/biometria_zdjecia/anakin_skywalker_animowany.jpg'
-IMG2_PATH = '/home/wojtazk/Desktop/biometria_zdjecia/anakin_skywalker.png'
+IMG1_PATH = '/home/wojtazk/Desktop/Pope_John_Paul_II_smile.jpg'
+IMG2_PATH = '/home/wojtazk/Desktop/Nancy_Reagan_and_Pope_John_Paul_II_(cropped).jpg'
 
 # border: top, bottom, left, right
-border = (2000, 2000, 2000, 2000)
+border = (2000, 2000, 3000, 3000)
 
 
 if __name__ == '__main__':
@@ -31,13 +31,6 @@ if __name__ == '__main__':
 
     spoofing_analysis_img2 = detect_spoofing(frame_img2)
     face2 = spoofing_analysis_img2[0]['face']
-
-    # define window
-    cv2.startWindowThread()
-    window_id = 'Verification'
-
-    cv2.namedWindow(window_id, cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)
-    cv2.resizeWindow(window_id, 600, 600)
 
     # add padding to the frame
     frame_img1 = cv2.copyMakeBorder(frame_img1, *border, cv2.BORDER_CONSTANT, value=(0, 0, 0, 0))
@@ -90,7 +83,19 @@ if __name__ == '__main__':
     text = f'Verified: {result['verified']}'
     cv2.putText(frame, text, (600 + 30, 600 - 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 153, 0), 2)
 
+    # define window
+    cv2.startWindowThread()
+    window_id = 'Verification'
+    window_id_2 = 'Verification(2)'
+
+    cv2.namedWindow(window_id, cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)
+    cv2.resizeWindow(window_id, 600, 600)
+
+    cv2.namedWindow(window_id_2, cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)
+    cv2.resizeWindow(window_id_2, 600, 600)
+
     cv2.imshow(window_id, frame)
+    cv2.imshow(window_id_2, frame)
     while True:
         # get pressed key
         pressed_key = cv2.waitKey(1) & 0xFF
