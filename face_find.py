@@ -3,8 +3,8 @@ from deepface import DeepFace
 from helpers import detect_spoofing, draw_spoofing
 
 
-IMG_PATH = '/home/wojtazk/Desktop/Screenshot_20241125_195446.png'
-DB_PATH = '/home/wojtazk/Desktop/biometria_zdjecia'
+IMG_PATH = '/home/wojtazk/Desktop/Elon_Musk_Royal_Society_crop.jpg'
+DB_PATH = '/home/wojtazk/Desktop/elon_musk'
 
 # border: top, bottom, left, right
 border = (1000, 1000, 1000, 1000)
@@ -48,15 +48,15 @@ if __name__ == '__main__':
     draw_spoofing(frame, spoofing_analysis, border)
 
     cv2.imshow(window_id, frame)
-    while True:
-        # get pressed key
-        pressed_key = cv2.waitKey(1) & 0xFF
-        # Press 'q' to quit
-        if pressed_key == ord('q'):
-            break
-        # quit when pressing the exit button
-        if cv2.getWindowProperty(window_id, cv2.WND_PROP_VISIBLE) < 1:
-            break
+    # while True:
+    #     # get pressed key
+    #     pressed_key = cv2.waitKey(1) & 0xFF
+    #     # Press 'q' to quit
+    #     if pressed_key == ord('q'):
+    #         break
+    #     # quit when pressing the exit button
+    #     if cv2.getWindowProperty(window_id, cv2.WND_PROP_VISIBLE) < 1:
+    #         break
 
     #################################################
     # show matches
@@ -85,14 +85,19 @@ if __name__ == '__main__':
         draw_spoofing(frame, spoofing_analysis, border)
 
         cv2.imshow(window_id, frame)
-        while True:
-            # get pressed key
-            pressed_key = cv2.waitKey(1) & 0xFF
-            # Press 'q' to quit
-            if pressed_key == ord('q'):
-                break
-            # quit when pressing the exit button
-            if cv2.getWindowProperty(window_id, cv2.WND_PROP_VISIBLE) < 1:
-                break
+        # while True:
+        #     # get pressed key
+        #     pressed_key = cv2.waitKey(1) & 0xFF
+        #     # Press 'q' to quit
+        #     if pressed_key == ord('q'):
+        #         break
+        #     # quit when pressing the exit button
+        #     if cv2.getWindowProperty(window_id, cv2.WND_PROP_VISIBLE) < 1:
+        #         break
 
+    while True:
+        pressed_key = cv2.waitKey(1) & 0xFF
+        # Press 'q' to quit
+        if pressed_key == ord('q'):
+            break
     cv2.destroyAllWindows()
