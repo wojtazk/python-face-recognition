@@ -3,8 +3,8 @@ from deepface import DeepFace
 from helpers import detect_spoofing, draw_spoofing
 
 
-TEMPLATE_IMG_PATH = '/home/wojtazk/Desktop/Screenshot_20241125_195446.png'
-IMG_DIRECTORY = '/home/wojtazk/Desktop/biometria_zdjecia'
+IMG_PATH = '/home/wojtazk/Desktop/Screenshot_20241125_195446.png'
+DB_PATH = '/home/wojtazk/Desktop/biometria_zdjecia'
 
 # border: top, bottom, left, right
 border = (1000, 1000, 1000, 1000)
@@ -12,8 +12,8 @@ border = (1000, 1000, 1000, 1000)
 
 if __name__ == '__main__':
     matches = DeepFace.find(
-        img_path=TEMPLATE_IMG_PATH,
-        db_path=IMG_DIRECTORY,
+        img_path=IMG_PATH,
+        db_path=DB_PATH,
     )
 
     match_dict = matches[0].to_dict()
@@ -28,7 +28,7 @@ if __name__ == '__main__':
     #################################################
     # show original
     # noinspection DuplicatedCode
-    frame = cv2.imread(TEMPLATE_IMG_PATH)
+    frame = cv2.imread(IMG_PATH)
     spoofing_analysis = detect_spoofing(frame)
     print()
     for face in spoofing_analysis:
@@ -36,7 +36,7 @@ if __name__ == '__main__':
         print(face)
 
     cv2.startWindowThread()
-    window_id = f'ORIGINAL - {TEMPLATE_IMG_PATH}'
+    window_id = f'ORIGINAL - {IMG_PATH}'
 
     cv2.namedWindow(window_id, cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)
     cv2.resizeWindow(window_id, 600, 600)
