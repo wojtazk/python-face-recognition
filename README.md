@@ -2,7 +2,8 @@
 Analiza, rozpoznawanie oraz wyszukiwanie twarzy przy użyciu [deepface](https://pypi.org/project/deepface/) oraz [opencv](https://pypi.org/project/opencv-python/)
 
 > [!TIP]
-> Aby zamknąć okno kliknij klawisz `q`
+> Aby zamknąć okno programu kliknij klawisz `q`\
+> Przycisk `❌` nie zawsze zadziała
 
 <br>
 
