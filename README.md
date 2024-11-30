@@ -1,5 +1,5 @@
 # Python Face Recognition
-Face recognitoin with [deepface](https://pypi.org/project/deepface/) and [opencv](https://pypi.org/project/opencv-python/)
+Analiza, rozpoznawanie oraz wyszukiwanie twarzy przy użyciu [deepface](https://pypi.org/project/deepface/) oraz [opencv](https://pypi.org/project/opencv-python/)
 
 <br>
 
