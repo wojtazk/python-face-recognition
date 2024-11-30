@@ -1,6 +1,9 @@
 # Python Face Recognition
 Analiza, rozpoznawanie oraz wyszukiwanie twarzy przy użyciu [deepface](https://pypi.org/project/deepface/) oraz [opencv](https://pypi.org/project/opencv-python/)
 
+> [!TIP]
+> Aby zamknąć okno kliknij klawisz `q`
+
 <br>
 
 ## Instalowanie niezbędnych pakietów
@@ -8,7 +11,22 @@ Analiza, rozpoznawanie oraz wyszukiwanie twarzy przy użyciu [deepface](https://
 pip install -r requirements.txt
 ```
 
-## Analiza twarzy
+## Analiza twarzy przy użyciu kamery
+> [!NOTE]  
+> Urządzenie musi posiadać kamerę
+
+Uruchamianie analizy twarzy:
+```shell
+python face_analyze_camera.py
+```
+> [!TIP]
+> W celu analizy aktualnej klatki kliknij klawisz `f`
+
+![face_analyze_camera](https://github.com/user-attachments/assets/ef6e12e4-808b-44ce-83b1-399f547e437e)
+
+
+
+## Analiza twarzy ze zdjecia
 Należy zmodyfikować ścieżkę do folderu ze zdjęciami do analizy, w pliku `face_analyze_img.py`:
 ```python
 IMG_DIRECTORY = '/home/wojtazk/Desktop/biometria_zdjecia'
@@ -58,6 +76,7 @@ python face_verify.py
 
 
 ## Zdjęcia użyte w przykładach
+- https://commons.wikimedia.org/wiki/File:Donald_Trump_official_portrait.jpg
 - https://unsplash.com/photos/photography-of-five-people-near-outdoor-during-daytime-hOF1bWoet_Q
 - https://commons.wikimedia.org/wiki/File:Elon_Musk_Royal_Society_crop.jpg
 - https://commons.wikimedia.org/wiki/File:Elon_Musk_(12271223586).jpg
