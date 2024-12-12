@@ -60,10 +60,11 @@ python face_find.py
 
 
 ## Weryfikacja twarzy - czy na zdjecie1 i zdjecie2 jest ta sama osoba
-Należy zmodyfikować ścieżki do zdjęć w pliku `face_verify.py`
+Należy zmodyfikować ścieżki do zdjęcia bazowego i do katalogu ze zdjeciami do weryfikacji, w pliku `face_verify.py`
 ```python
-IMG1_PATH = '/home/wojtazk/Desktop/Pope_John_Paul_II_smile.jpg'
-IMG2_PATH = '/home/wojtazk/Desktop/Nancy_Reagan_and_Pope_John_Paul_II_(cropped).jpg'
+TEMPLATE_IMG = '/home/wojtazk/Desktop/Pope_John_Paul_II_smile.jpg'
+
+IMG_DIRECTORY = '/home/wojtazk/Desktop/Nancy_Reagan_and_Pope_John_Paul_II_(cropped).jpg'
 ```
 
 <br>
