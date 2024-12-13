@@ -14,6 +14,9 @@ images = sorted(IMG_DIRECTORY + '/' + file for file in os.listdir(IMG_DIRECTORY)
 # border: top, bottom, left, right
 border = (2000, 2000, 3000, 3000)
 
+# file to write distances to
+distances_file = open('distances.txt', 'w')
+
 for image in images:
     if __name__ == '__main__':
         result = DeepFace.verify(
@@ -22,6 +25,9 @@ for image in images:
             enforce_detection=False,
         )
         print(result)
+
+        # write distance to file
+        distances_file.write(str(result['distance']) + '\n')
 
         ###########################################
         frame_img1 = cv2.imread(TEMPLATE_IMG)
@@ -95,11 +101,11 @@ for image in images:
         cv2.namedWindow(window_id, cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)
         cv2.resizeWindow(window_id, 600, 600)
 
-        cv2.namedWindow(window_id_2, cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)
-        cv2.resizeWindow(window_id_2, 600, 600)
+        # cv2.namedWindow(window_id_2, cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)
+        # cv2.resizeWindow(window_id_2, 600, 600)
 
         cv2.imshow(window_id, frame)
-        cv2.imshow(window_id_2, frame)
+        # cv2.imshow(window_id_2, frame)
 
 while True:
     # get pressed key
@@ -111,4 +117,5 @@ while True:
     # if cv2.getWindowProperty(window_id, cv2.WND_PROP_VISIBLE) < 1:
     #     break
 
+distances_file.close()
 cv2.destroyAllWindows()
