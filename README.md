@@ -27,7 +27,7 @@ python face_analyze_camera.py
 
 
 
-## Analiza twarzy ze zdjecia
+## Analiza twarzy ze zdjęcia
 Należy zmodyfikować ścieżkę do folderu ze zdjęciami do analizy, w pliku `face_analyze_img.py`:
 ```python
 IMG_DIRECTORY = '/home/wojtazk/Desktop/biometria_zdjecia'
